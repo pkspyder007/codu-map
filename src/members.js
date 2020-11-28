@@ -17,4 +17,13 @@ export const members = [
       lng: 14.658740,
     },
   },
+ {
+    githubUsername: "jatin2003",
+    name: "Jatin Rao",
+    location: "AGRA, UTTAR PRADESH, INDIA",
+    position: {
+      lat: 27.167720,
+      lng: 78.035890,
+    },
+  },
 ];
