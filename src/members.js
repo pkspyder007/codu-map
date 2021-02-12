@@ -5,6 +5,15 @@ export const members = [
     location: "ETAH, UTTAR PRADESH, INDIA",
     position: {
       lat: 27.56848,
+      lng: 68.64682,
+    },
+  },
+  {
+    githubUsername: "pkspyder007",
+    name: "Praveen Kumar",
+    location: "ETAH, UTTAR PRADESH, INDIA",
+    position: {
+      lat: 27.56848,
       lng: 78.64682,
     },
   },
