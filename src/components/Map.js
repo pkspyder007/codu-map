@@ -30,7 +30,7 @@ export class MapContainer extends Component {
 
   render() {
     return (
-      <Map google={this.props.google} onClick={this.onMapClicked} zoom={2}>
+      <Map google={this.props.google} onClick={this.onMapClicked} zoom={1}>
         <Marker
           onClick={this.onMarkerClick}
           name={"Codu Community"}
