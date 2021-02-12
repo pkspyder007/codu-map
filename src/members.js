@@ -35,6 +35,15 @@ export const members = [
       lng: 14.658740,
     },
   },
+  {
+    githubUsername: "Carnifex04",
+    name: "Carni",
+    location: "Chandigarh, India",
+    position: {
+      lat: 30.7333,
+      lng: 76.7794,
+    },
+  },
  {
     githubUsername: "jatin2003",
     name: "Jatin Rao",
