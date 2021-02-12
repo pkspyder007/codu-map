@@ -1,5 +1,14 @@
 export const members = [
   {
+    githubUsername: "DevangSharma",
+    name: "Devang Sharma",
+    location: "Bikaner, Rajasthan, India",
+    position: {
+      lat: 24.56848,
+      lng: 78.64682,
+    },
+  },
+  {
     githubUsername: "pkspyder007",
     name: "Praveen Kumar",
     location: "ETAH, UTTAR PRADESH, INDIA",
