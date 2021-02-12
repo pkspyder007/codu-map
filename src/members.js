@@ -44,4 +44,13 @@ export const members = [
       lng: 78.035890,
     },
   },
+  {
+    githubUsername: "sanskruti-shahu",
+    name: "Sanskruti Shahu",
+    location: "NAGPUR, MAHARASHTRA, INDIA",
+    position: {
+      lat: 21.146633,
+      lng: 79.088860,
+    },
+  },
 ];
