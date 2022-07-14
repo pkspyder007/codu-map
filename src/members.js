@@ -62,4 +62,13 @@ export const members = [
       lng: 79.088860,
     },
   },
+  {
+    githubUsername: "BrancuAlexandru",
+    name: "Brancu Alexandru",
+    location: "Timis, Timisoara, Romania",
+    position: {
+      lat: 45.761122,
+      lng: 21.247684,
+    },
+  },
 ];
