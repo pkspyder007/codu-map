@@ -1,7 +1,8 @@
-import React, { Component } from "react";
-import { Map, InfoWindow, Marker, GoogleApiWrapper } from "google-maps-react";
-import { members } from "../members";
+//import React, { Component } from "react";
+//import { Map, InfoWindow, Marker, GoogleApiWrapper } from "google-maps-react";
+//import { members } from "../members";
 
+/*
 export class MapContainer extends Component {
   state = {
     showingInfoWindow: false,
@@ -73,7 +74,7 @@ export class MapContainer extends Component {
                 />
                 <p>{member.location}</p>
               </div>
-            </InfoWindow> */}
+            </InfoWindow> *//*}
           </Marker>
         ))}
       </Map>
@@ -84,3 +85,4 @@ export class MapContainer extends Component {
 export default GoogleApiWrapper({
   apiKey: "AIzaSyBpIwkBrzchs9ICE4tdERb-8tuZV1R8yl8",
 })(MapContainer);
+*/

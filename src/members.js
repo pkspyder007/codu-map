@@ -1,4 +1,4 @@
-export const members = [
+const members = [
   {
     githubUsername: "DevangSharma",
     name: "Devang Sharma",
@@ -72,3 +72,5 @@ export const members = [
     },
   },
 ];
+
+export default members;
