@@ -21,15 +21,15 @@ class Map extends React.Component {
     };
   }
   // bug: this opens all InfoWindows
-  onMarkerClick = (props, marker) => {
+  // fix: only open the clicked marker's InfoWindow
+  handleMarkerClick = (marker) => {
     this.setState({
       activeMarker: marker,
       showingInfoWindow: true
     });
   }
-  // bug: this closes all InfoWindows
-  handleInfoWindowClose = () => {
-    if (this.state.showingInfoWindow) {
+  handleInfoWindowClose = (name) => {
+    if (this.state.showingInfoWindow && this.state.activeMarker.name === name) {
       this.setState({
         showingInfoWindow: false,
         activeMarker: null,
@@ -37,11 +37,11 @@ class Map extends React.Component {
     }
   }
 
-  onMapClicked = () => {
+  handleMapClicked = () => {
     if (this.state.showingInfoWindow) {
       this.setState({
         showingInfoWindow: false,
-        activeMarker: null,
+        activeMarker: {},
       });
     }
   };
@@ -53,22 +53,22 @@ class Map extends React.Component {
             mapContainerStyle={containerStyle}
             center={center}
             zoom={2.6}
-            onClick={this.onMapClicked}
+            onClick={this.handleMapClicked}
           >
-            {members.map((member, idx) => (
+            {members.map((member, id) => (
               <Marker
-                key={idx}
+                key={id}
                 position={member.position}
                 title={member.githubUsername}
                 name={member.name}
-                onClick={this.onMarkerClick}
+                onClick={this.handleMarkerClick} // addind a parameter to this is causing infinite loop
                 // name={`${member.name}'s Location`}
               >
-              {this.state.showingInfoWindow &&
+              {this.state.showingInfoWindow && this.state.activeMarker &&
                 <InfoWindow
                   visible={member.showInfoVisible}
                   position={member.position}
-                  onCloseClick={this.handleInfoWindowClose}
+                  onCloseClick={this.handleInfoWindowClose(member.name)}
                 >
                   <div>
                     <img
