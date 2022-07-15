@@ -12,7 +12,10 @@ const center = {
   lng: 0
 };
 
-function Map() {
+const Map = () => {
+  const onMarkerClick = (member) => {
+    member.showInfoVisible = true;
+  }
   return (
     <div className="map">
       <LoadScript
@@ -29,14 +32,18 @@ function Map() {
               position={member.position}
               title={member.githubUsername}
               name={member.name}
-              //onClick={onMarkerClick} onMarkerClick is undefined
+              onClick={onMarkerClick(member)}
               // name={`${member.name}'s Location`}
             >
-              {/* <InfoWindow //You must provide either an anchor (typically render it inside a <Marker>) or a position props for <InfoWindow>.
-                //marker={this.state.activeMarker}
-                //visible={this.state.showingInfoWindow}
-                  anchor={0}
-                >
+              <InfoWindow
+                visible={member.showInfoVisible}
+                position={
+                  { 
+                    lat: member.position.lat,
+                    lng: member.position.lng
+                  }
+                }
+              >
                 <div>
                   <img
                     alt={`User Icon for ${member.name}`}
@@ -45,7 +52,7 @@ function Map() {
                   />
                   <p>{member.location}</p>
                 </div>
-              </InfoWindow> */}
+              </InfoWindow>
             </Marker>
           ))}
         </GoogleMap>
