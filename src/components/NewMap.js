@@ -13,19 +13,28 @@ const center = {
 };
 
 class Map extends React.Component {
-  state = {
-    showingInfoWindow: false,
-    activeMarker: {},
-    selectedPlace: {}
-  };
-
+  constructor(props) {
+    super(props);
+    this.state = {
+      showingInfoWindow: false,
+      activeMarker: {}
+    };
+  }
+  // bug: this opens all InfoWindows
   onMarkerClick = (props, marker) => {
     this.setState({
-      selectedPlace: props,
       activeMarker: marker,
-      showingInfoWindow: true,
-      currentImg: props.title
+      showingInfoWindow: true
     });
+  }
+  // bug: this closes all InfoWindows
+  handleInfoWindowClose = () => {
+    if (this.state.showingInfoWindow) {
+      this.setState({
+        showingInfoWindow: false,
+        activeMarker: null,
+      });
+    }
   }
 
   onMapClicked = () => {
@@ -55,10 +64,11 @@ class Map extends React.Component {
                 onClick={this.onMarkerClick}
                 // name={`${member.name}'s Location`}
               >
-              { this.state.showingInfoWindow &&
+              {this.state.showingInfoWindow &&
                 <InfoWindow
                   visible={member.showInfoVisible}
                   position={member.position}
+                  onCloseClick={this.handleInfoWindowClose}
                 >
                   <div>
                     <img
