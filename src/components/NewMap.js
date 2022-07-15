@@ -9,56 +9,74 @@ const containerStyle = {
 
 const center = {
   lat: 26,
-  lng: 0
+  lng: 10
 };
 
-const Map = () => {
-  const onMarkerClick = (member) => {
-    member.showInfoVisible = true;
+class Map extends React.Component {
+  state = {
+    showingInfoWindow: false,
+    activeMarker: {},
+    selectedPlace: {}
+  };
+
+  onMarkerClick = (props, marker) => {
+    this.setState({
+      selectedPlace: props,
+      activeMarker: marker,
+      showingInfoWindow: true,
+      currentImg: props.title
+    });
   }
-  return (
-    <div className="map">
-      <LoadScript
-        googleMapsApiKey="AIzaSyBpIwkBrzchs9ICE4tdERb-8tuZV1R8yl8"
-      >
-        <GoogleMap
-          mapContainerStyle={containerStyle}
-          center={center}
-          zoom={2.6}
-        >
-          {members.map((member, idx) => (
-            <Marker
-              key={idx}
-              position={member.position}
-              title={member.githubUsername}
-              name={member.name}
-              onClick={onMarkerClick(member)}
-              // name={`${member.name}'s Location`}
-            >
-              <InfoWindow
-                visible={member.showInfoVisible}
-                position={
-                  { 
-                    lat: member.position.lat,
-                    lng: member.position.lng
-                  }
-                }
+
+  onMapClicked = () => {
+    if (this.state.showingInfoWindow) {
+      this.setState({
+        showingInfoWindow: false,
+        activeMarker: null,
+      });
+    }
+  };
+  render() {
+    return (
+      <div className="map">
+        <LoadScript googleMapsApiKey="AIzaSyBpIwkBrzchs9ICE4tdERb-8tuZV1R8yl8">
+          <GoogleMap
+            mapContainerStyle={containerStyle}
+            center={center}
+            zoom={2.6}
+            onClick={this.onMapClicked}
+          >
+            {members.map((member, idx) => (
+              <Marker
+                key={idx}
+                position={member.position}
+                title={member.githubUsername}
+                name={member.name}
+                onClick={this.onMarkerClick}
+                // name={`${member.name}'s Location`}
               >
-                <div>
-                  <img
-                    alt={`User Icon for ${member.name}`}
-                    src={`https://github.com/${member.githubUsername}.png`}
-                    className="UserCard__image"
-                  />
-                  <p>{member.location}</p>
-                </div>
-              </InfoWindow>
-            </Marker>
-          ))}
-        </GoogleMap>
-      </LoadScript>
-    </div>
-  )
+              { this.state.showingInfoWindow &&
+                <InfoWindow
+                  visible={member.showInfoVisible}
+                  position={member.position}
+                >
+                  <div>
+                    <img
+                      alt={`User Icon for ${member.name}`}
+                      src={`https://github.com/${member.githubUsername}.png`}
+                      className="UserCard__image"
+                    />
+                    <p>{member.location}</p>
+                  </div>
+                </InfoWindow>
+              }
+              </Marker>
+            ))}
+          </GoogleMap>
+        </LoadScript>
+      </div>
+    )
+  }
 }
 
 export default React.memo(Map)
