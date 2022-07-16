@@ -20,14 +20,33 @@ class Map extends React.Component {
       activeMarker: {}
     };
   }
-  // bug: this opens all InfoWindows
-  // fix: only open the clicked marker's InfoWindow
-  handleMarkerClick = (marker) => {
-    this.setState({
-      activeMarker: marker,
-      showingInfoWindow: true
-    });
+
+  handleMarkerClick = (member) => {
+    return (
+      <InfoWindow
+        key={member.id}
+        visible={this.state.showingInfoWindow}
+        position={member.position}
+        onCloseClick={() => this.handleInfoWindowClose(member.name)}
+        onLoad={() => {
+          this.setState ({
+            showingInfoWindow: true,
+            openInfoWindowId: member.id
+          })
+        }}
+      >
+        <div>
+          <img
+            alt={`User Icon for ${member.name}`}
+            src={`https://github.com/${member.githubUsername}.png`}
+            className="UserCard__image"
+          />
+          <p>{member.location}</p>
+        </div>
+      </InfoWindow>
+    )
   }
+
   handleInfoWindowClose = (name) => {
     if (this.state.showingInfoWindow && this.state.activeMarker.name === name) {
       this.setState({
@@ -41,7 +60,7 @@ class Map extends React.Component {
     if (this.state.showingInfoWindow) {
       this.setState({
         showingInfoWindow: false,
-        activeMarker: {},
+        activeMarker: {}
       });
     }
   };
@@ -61,25 +80,9 @@ class Map extends React.Component {
                 position={member.position}
                 title={member.githubUsername}
                 name={member.name}
-                onClick={this.handleMarkerClick} // addind a parameter to this is causing infinite loop
+                onClick={this.handleMarkerClick(member)}
                 // name={`${member.name}'s Location`}
               >
-              {this.state.showingInfoWindow && this.state.activeMarker &&
-                <InfoWindow
-                  visible={member.showInfoVisible}
-                  position={member.position}
-                  onCloseClick={this.handleInfoWindowClose(member.name)}
-                >
-                  <div>
-                    <img
-                      alt={`User Icon for ${member.name}`}
-                      src={`https://github.com/${member.githubUsername}.png`}
-                      className="UserCard__image"
-                    />
-                    <p>{member.location}</p>
-                  </div>
-                </InfoWindow>
-              }
               </Marker>
             ))}
           </GoogleMap>
@@ -89,4 +92,4 @@ class Map extends React.Component {
   }
 }
 
-export default React.memo(Map)
+export default Map;
